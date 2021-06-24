@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,16 +33,23 @@ class _SplashScreenState extends State<SplashScreen> {
       if (state is CheckIfSignedInEventCompletedState) {
         //proceed to home
         if (state.res.isEmpty) {
-          Navigator.popAndPushNamed(context, '/home');
+          Timer(Duration(milliseconds: 6000),(){
+            Navigator.popAndPushNamed(context, '/home');
+          });
         } else {
-          Navigator.popAndPushNamed(context, '/sign_in');
+          Timer(Duration(milliseconds: 6000),(){
+            Navigator.popAndPushNamed(context, '/sign_in');
+          });
         }
       }
 
       if (state is CheckIfSignedInEventFailedState) {
         //proceed to sign in
         print('failed to check if logged in');
-        Navigator.popAndPushNamed(context, '/sign_in');
+        Timer(Duration(milliseconds: 6000),(){
+          Navigator.popAndPushNamed(context, '/sign_in');
+        });
+
       }
     });
 
@@ -56,30 +65,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              'assets/icons/delivery.svg',
-              width: size.width * 0.25,
-              height: size.width * 0.25,
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Text(
-              'Grocery Store Delivery',
-              style: GoogleFonts.poppins(
-                color: Colors.black.withOpacity(0.85),
-                fontSize: 14.0,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ],
-        ),
+        child: Image.asset(
+        'assets/icons/logo.png',
       ),
-    );
+    ));
   }
 }
